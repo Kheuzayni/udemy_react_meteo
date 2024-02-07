@@ -1,11 +1,14 @@
 import loader from "./assets/loader.svg"
 import "./app.css"
 import { useState, useEffect } from "react";
+import browser from "./assets/browser.svg"
+
 const APIKEY = import.meta.env.VITE_WEATHER_API_KEY;
 
 function App() {
 
   const [weatherData, setWeatherData] = useState(null);
+  const [errorInfo, setErrorInfo] = useState(null);
 
   useEffect(() => {
     fetch(`http://api.airvisual.com/v2/nearest_city?key=${APIKEY}`)
@@ -14,13 +17,17 @@ function App() {
       return response.json()
     })
     .then(responseData => {
-      console.log(responseData);
       setWeatherData({
         city: responseData.data.city,
         country: responseData.data.country,
         iconId: responseData.data.current.weather.ic,
         temperature: responseData.data.current.weather.tp,
       })
+    })
+    .catch(err => {
+      console.log(err)
+      console.dir(err)
+      setErrorInfo(err.message)
     })
   }, [])
 
@@ -36,7 +43,7 @@ function App() {
         **********************************************************
           <br/><br/>
           <p>Test données api</p>
-        <div className={`loader-container ${!weatherData && "active"}`}>
+        <div className={`loader-container ${(!weatherData && !errorInfo) && "active"}`}>
           <img src = {loader} alt="loading icon" />
         </div> 
         {weatherData && (
@@ -50,6 +57,13 @@ function App() {
           </>
           )
         }
+
+        {(errorInfo && !weatherData) && (
+          <>
+            <p className="error-information">{errorInfo}</p>
+            <img src = {browser} alt="error icon" />
+          </>
+        )}
       </main>
   )
 }
