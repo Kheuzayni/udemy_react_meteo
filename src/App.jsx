@@ -18,8 +18,8 @@ function App() {
       setWeatherData({
         city: responseData.data.city,
         country: responseData.data.country,
-        iconId: responseData.data.ic,
-        temperature: responseData.data.curent.weather.tp,
+        iconId: responseData.data.current.weather.ic,
+        temperature: responseData.data.current.weather.tp,
       })
     })
 
@@ -33,16 +33,21 @@ function App() {
         <div className={`loader-container ${!weatherData && "active"}`}>
           <img src = {loader} alt="loading icon" />
         </div> 
-        <p>Test données api</p>
-        <p className="city-name">Dakar</p>
-        <p className="country-name">Sénégal</p>
-        <p className="temperature-name">30 °</p>
-        <div className="info-icon-container">
-          <img src = "/icons/01d.svg" className="" alt="weather icon" />
-        </div>
+        {weatherData && (
+          <>
+            <p>Test données api</p>
+            <p className="city-name">{weatherData.city}</p>
+            <p className="country-name">{weatherData.country}</p>
+            <p className="temperature-name">{weatherData.temperature}°</p>
+            <div className="info-icon-container">
+              <img src = {`/icons/${weatherData.iconId}.svg`} className="info-icon" alt="weather icon" />
+            </div>
+          </>
+          )}
         
-        <br/><br/><br/>
-        ////////////////////////////////////////////////////////////////
+        <br/>
+        **********************************************************
+        <br/><br/>
         <p>Test données statique</p>
         <p className="city-name">Dakar</p>
         <p className="country-name">Sénégal</p>
