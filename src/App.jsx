@@ -33,7 +33,6 @@ function App() {
         <div className={`loader-container ${!weatherData && "active"}`}>
           <img src = {loader} alt="loading icon" />
         </div> 
-        ////////////////////////////////////////////////////////////////
         <p>Test données api</p>
         <p className="city-name">Dakar</p>
         <p className="country-name">Sénégal</p>
@@ -51,7 +50,6 @@ function App() {
         <div className="info-icon-container">
           <img src = "/icons/01d.svg" className="" alt="weather icon" />
         </div>
-        ////////////////////////////////////////////////////////////////
       </main>
   
   );
