@@ -14,9 +14,14 @@ function App() {
     fetch(`http://api.airvisual.com/v2/nearest_city?key=${APIKEY}`)
     .then(response => {
       console.log(response);
+
+      //Gestion des erreures particulières
+      if (!response.ok) throw Error (`Error ${response.status}, ${response.statusText}`)
+
       return response.json()
     })
     .then(responseData => {
+      // console.log(responseData);
       setWeatherData({
         city: responseData.data.city,
         country: responseData.data.country,
